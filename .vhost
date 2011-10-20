@@ -1,23 +1,23 @@
 <VirtualHost *:80>
     ServerAdmin jdeerhake@gmail.com
-    ServerName jdeerhake.com
-    ServerAlias www.jdeerhake.com
+    ServerName numshouses.com
+    ServerAlias www.numshouses.com
 
-	DocumentRoot /www/jdeerhake-com
+	DocumentRoot /www/numshouses-com
 
-	<Directory /www/jdeerhake-com/>
+	<Directory /www/numshouses-com/>
 		Options -Indexes FollowSymLinks MultiViews
 		AllowOverride None
 		Order allow,deny
 		allow from all
 	</Directory>
 
-	ErrorLog /www/jdeerhake-com/log/error.log
+	ErrorLog /www/numshouses-com/log/error.log
 
 	# Possible values include: debug, info, notice, warn, error, crit,
 	# alert, emerg.
 	LogLevel warn
 
-	CustomLog /www/jdeerhake-com/log/access.log combined
+	CustomLog /www/numshouses-com/log/access.log combined
 </VirtualHost>
 

@@ -56,26 +56,26 @@ NUMS.continents = {
 
 
 jQuery(document).ready(function() {
-  NUMS.paper = paper = Raphael('map');
+  NUMS.paper = Raphael('map');
 
   var defaults = {
     "stroke-width": .5,
     "stroke-linejoin": "round"
   };
 
-    function lon2x(lon) {
-        var xfactor = 2.6938;
-        var xoffset = 465.4;
-        var x = (lon * xfactor) + xoffset;
-        return x;
-    }
+  function lon2x(lon) {
+      var xfactor = 2.6938;
+      var xoffset = 465.4;
+      var x = (lon * xfactor) + xoffset;
+      return x;
+  }
 
-    function lat2y(lat) {
-        var yfactor = -2.6938;
-        var yoffset = 227.066;
-        var y = (lat * yfactor) + yoffset;
-        return y;
-    }
+  function lat2y(lat) {
+      var yfactor = -2.6938;
+      var yoffset = 227.066;
+      var y = (lat * yfactor) + yoffset;
+      return y;
+  }
 
 
   for(var continent in NUMS.continents) {
