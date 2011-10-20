@@ -56,7 +56,7 @@ NUMS.continents = {
 
 
 jQuery(document).ready(function() {
-  NUMS.paper = Raphael('map');
+  NUMS.paper = Raphael('map', '100%', '100%');
 
   var defaults = {
     "stroke-width": .5,
