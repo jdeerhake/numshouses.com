@@ -1,56 +1,42 @@
 var NUMS = NUMS || {};
 
 
-NUMS.getPaths = function(continent, attr) {
+NUMS.writePathsFromData = function(continent, attr, mouseover, mouseout) {
   var paths = [];
   NUMS.mapData[continent].forEach(function(path, i) {
-    paths.push(NUMS.paper.path(path).attr(attr));
+    var path = NUMS.paper.path(path).attr(attr);
+    NUMS.scale(path, NUMS.scale.factor);
+    path.hover(mouseover, mouseout);
+    paths.push(path);
   });
   return paths;
-}
+};
+
+NUMS.scale = function(path, factor, move) {
+    path.scale(factor, factor, factor, factor);
+};
 
 NUMS.continents = {
   "north_america" : {
-    stroke : "#000",
-    fill : "#333",
-    hoverFill : "#666",
-    opacity : ".6"
+    fill : "#1f519a"
   },
   "asia" : {
-    stroke : "#000",
-    fill : "#333",
-    hoverFill : "#666",
-    opacity : ".6"
+    fill : "#e2bb44"
   },
   "europe" : {
-    stroke : "#000",
-    fill : "#333",
-    hoverFill : "#666",
-    opacity : ".6"
+    fill : "#ae0b20"
   },
   "africa" : {
-    stroke : "#000",
-    fill : "#333",
-    hoverFill : "#666",
-    opacity : ".6"
+    fill : "#d74a12"
   },
   "australia" : {
-    stroke : "#000",
-    fill : "#333",
-    hoverFill : "#666",
-    opacity : ".6"
+    fill : "#007747"
   },
   "south_america" : {
-    stroke : "#000",
-    fill : "#333",
-    hoverFill : "#666",
-    opacity : ".6"
+    fill : "#c12966"
   },
   "antarctica" : {
-    stroke : "#000",
-    fill : "#333",
-    hoverFill : "#666",
-    opacity : ".6"
+    fill : "#391d50"
   }
 }
 
@@ -58,63 +44,57 @@ NUMS.continents = {
 jQuery(document).ready(function() {
   NUMS.paper = Raphael('map', '100%', '100%');
 
+  NUMS.scale.factor = (function() {
+    var svg = jQuery("svg"),
+      heightFactor = svg.height() / NUMS.mapData.height,
+      widthFactor = svg.width() / NUMS.mapData.width;
+
+    return heightFactor > widthFactor ? heightFactor : widthFactor;
+  }());
+
+  NUMS.scale.hoverFactor = 1.01;
+
+
+
   var defaults = {
     "stroke-width": .5,
-    "stroke-linejoin": "round"
+    "stroke-linejoin": "round",
+    opacity : .4,
+    hoverOpacity : .9,
+    stroke : false
   };
 
-  function lon2x(lon) {
-      var xfactor = 2.6938;
-      var xoffset = 465.4;
-      var x = (lon * xfactor) + xoffset;
-      return x;
-  }
 
-  function lat2y(lat) {
-      var yfactor = -2.6938;
-      var yoffset = 227.066;
-      var y = (lat * yfactor) + yoffset;
-      return y;
-  }
+  for(var continentName in NUMS.continents) {
+    if(NUMS.continents.hasOwnProperty(continentName)) {
+      (function() {
+        var continent = NUMS.continents[continentName],
+          attrs = jQuery.extend({}, defaults, continent),
+          paths = NUMS.writePathsFromData(continentName, attrs, mouseover, mouseout);
 
+        function mouseover() {
+          if(continent.offTimeout) {
+            clearTimeout(continent.offTimeout);
+            delete continent.offTimeout;
+          } else {
+            paths.forEach(function(path) {
+              path.attr({"opacity" : defaults.hoverOpacity});
+              NUMS.scale(path, NUMS.scale.hoverFactor);
+            });
+          }
+        }
 
-  for(var continent in NUMS.continents) {
-    if(NUMS.continents.hasOwnProperty(continent)) {
-      NUMS.getPaths(continent, jQuery.extend({}, defaults, NUMS.continents[continent]));
+        function mouseout() {
+          continent.offTimeout = setTimeout(function() {
+            delete continent.offTimeout;
+            paths.forEach(function(path) {
+              path.attr({"opacity" : defaults.opacity});
+              NUMS.scale(path, 1 / NUMS.scale.hoverFactor);
+            });
+          }, 50);
+        }
+      }());
     }
   }
-
-
-//    for (var countryCode in map) {
-
-//        (function(countryPath, countryCode) {
-//            if (visitedCountries[countryCode]) {
-//                countryPath.attr({
-//                    fill: visitedCountries[countryCode].c
-//                });
-//            }
-//            else {
-//                countryPath.attr({
-//                    opacity: 0.6
-//                });
-//                countryPath.color = Raphael.getColor();
-
-//                countryPath[0].onmouseover = function() {
-//                    countryPath.animate({
-//                        fill: countryPath.color,
-//                        stroke: countryPath.color
-//                    }, 300);
-//                    paper.safari();
-//                };
-//                countryPath[0].onmouseout = function() {
-//                    countryPath.animate({
-//                        fill: "#333",
-//                        stroke: "#000"
-//                    }, 300);
-//                    paper.safari();
-//                };
-//            }
-//        })(map[countryCode], countryCode);
-//    };
 });
 
