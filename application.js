@@ -24,6 +24,10 @@ NUMS.continents = {
     label : {
       dx : 0,
       dy : 0
+    },
+    scoreLabel : {
+      dx : -100,
+      dy : -100
     }
   },
   "asia" : {
@@ -33,6 +37,10 @@ NUMS.continents = {
     label : {
       dx : 0,
       dy : 0
+    },
+    scoreLabel : {
+      dx : -50,
+      dy : -100
     }
   },
   "europe" : {
@@ -42,6 +50,10 @@ NUMS.continents = {
     label : {
       dx : -50,
       dy : -50
+    },
+    scoreLabel : {
+      dx : 59,
+      dy : 0
     }
   },
   "africa" : {
@@ -51,6 +63,10 @@ NUMS.continents = {
     label : {
       dx : -80,
       dy : 20
+    },
+    scoreLabel : {
+      dx : 30,
+      dy : -60
     }
   },
   "australia" : {
@@ -60,6 +76,10 @@ NUMS.continents = {
     label : {
       dx : -250,
       dy : -30
+    },
+    scoreLabel : {
+      dx : -200,
+      dy : 50
     }
   },
   "south_america" : {
@@ -67,8 +87,12 @@ NUMS.continents = {
     fill : "#c12966",
     score : 0,
     label : {
+      dx : 30,
+      dy : 30
+    },
+    scoreLabel : {
       dx : 0,
-      dy : 0
+      dy : -50
     }
   },
   "antarctica" : {
@@ -78,6 +102,10 @@ NUMS.continents = {
     label : {
       dx : 0,
       dy : 0
+    },
+    scoreLabel : {
+      dx : 450,
+      dy : 20
     }
   }
 };
@@ -118,16 +146,15 @@ jQuery(document).ready(function() {
           attrs = jQuery.extend({}, defaults, continent),
           paths = NUMS.writePathsFromData(continentName, attrs, mouseover, mouseout),
           bbox = paths[paths.length === 1 ? 0 : Math.round(paths.length / 2)].getBBox(),
-          nameLabel = NUMS.label(continent.name, "continent", bbox.x + continent.label.dx, bbox.y + continent.label.dy);
-
-        //continents.scoreLabel.el = NUMS.label(continent.score, "score", )
+          nameLabel = continent.label.el = NUMS.label(continent.name, "continent", bbox.x + continent.label.dx, bbox.y + continent.label.dy),
+          scoreLabel = continent.scoreLabel.el = NUMS.label(continent.score, "score", bbox.x + continent.scoreLabel.dx, bbox.y + continent.scoreLabel.dy).show();
 
         function mouseover() {
           if(continent.offTimeout) {
             clearTimeout(continent.offTimeout);
             delete continent.offTimeout;
           } else {
-            nameLabel.show();
+            nameLabel.fadeIn(200);
             paths.forEach(function(path) {
               path.animate({"opacity" : defaults.hoverOpacity}, 200);
               //NUMS.scale(path, NUMS.scale.hoverFactor);
@@ -138,7 +165,7 @@ jQuery(document).ready(function() {
         function mouseout() {
           continent.offTimeout = setTimeout(function() {
             delete continent.offTimeout;
-            nameLabel.hide();
+            nameLabel.fadeOut(200);
             paths.forEach(function(path) {
               path.animate({"opacity" : defaults.opacity}, 200);
               //NUMS.scale(path, 1 / NUMS.scale.hoverFactor);
