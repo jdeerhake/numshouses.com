@@ -2,14 +2,25 @@
 <html>
 <head>
   <style>
-    body { width: 95%; height: 95%; background: #fff; }
+    body { width: 95%; height: 95%; background: #eee; }
     html, #map { width: 100%; height: 100%; }
+
+    .label {
+      padding: 15px 20px;
+      -webkit-border-radius: 10px;
+      background: gray;
+      background-color: rgba(0,0,0,.6);
+      font-size: 20px;
+      font-family: Georgia, Times, serif;
+      color: #fff;
+      position: absolute;
+      z-index: 1000;
+    }
   </style>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
   <script src="/polyfill.js"></script>
   <script src="/raphael-min.js"></script>
-  <script src="/scale.raphael.js"></script>
   <script src="/map.js"></script>
   <script src="/application.js"></script>
 </head>

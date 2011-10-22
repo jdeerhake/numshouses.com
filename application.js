@@ -18,26 +18,75 @@ NUMS.scale = function(path, factor, move) {
 
 NUMS.continents = {
   "north_america" : {
-    fill : "#1f519a"
+    name : "North America",
+    fill : "#1f519a",
+    score : 0,
+    label : {
+      dx : 0,
+      dy : 0
+    }
   },
   "asia" : {
-    fill : "#e2bb44"
+    name : "Asia",
+    fill : "#e2bb44",
+    score : 0,
+    label : {
+      dx : 0,
+      dy : 0
+    }
   },
   "europe" : {
-    fill : "#ae0b20"
+    name : "Europe",
+    fill : "#ae0b20",
+    score : 0,
+    label : {
+      dx : -50,
+      dy : -50
+    }
   },
   "africa" : {
-    fill : "#d74a12"
+    name : "Africa",
+    fill : "#d74a12",
+    score : 0,
+    label : {
+      dx : -80,
+      dy : 20
+    }
   },
   "australia" : {
-    fill : "#007747"
+    name : "Australia",
+    fill : "#007747",
+    score : 0,
+    label : {
+      dx : -250,
+      dy : -30
+    }
   },
   "south_america" : {
-    fill : "#c12966"
+    name : "South America",
+    fill : "#c12966",
+    score : 0,
+    label : {
+      dx : 0,
+      dy : 0
+    }
   },
   "antarctica" : {
-    fill : "#391d50"
+    name : "Antarctica",
+    fill : "#391d50",
+    score : 0,
+    label : {
+      dx : 0,
+      dy : 0
+    }
   }
+};
+
+NUMS.label = function(text, type, x, y) {
+  return jQuery("<div class='" + type + " label'>" + text + "</div>").css({
+    top : y + "px",
+    left : x + "px"
+  }).hide().appendTo("body");
 }
 
 
@@ -51,9 +100,6 @@ jQuery(document).ready(function() {
 
     return heightFactor > widthFactor ? heightFactor : widthFactor;
   }());
-
-  NUMS.scale.hoverFactor = 1.01;
-
 
 
   var defaults = {
@@ -70,16 +116,21 @@ jQuery(document).ready(function() {
       (function() {
         var continent = NUMS.continents[continentName],
           attrs = jQuery.extend({}, defaults, continent),
-          paths = NUMS.writePathsFromData(continentName, attrs, mouseover, mouseout);
+          paths = NUMS.writePathsFromData(continentName, attrs, mouseover, mouseout),
+          bbox = paths[paths.length === 1 ? 0 : Math.round(paths.length / 2)].getBBox(),
+          nameLabel = NUMS.label(continent.name, "continent", bbox.x + continent.label.dx, bbox.y + continent.label.dy);
+
+        //continents.scoreLabel.el = NUMS.label(continent.score, "score", )
 
         function mouseover() {
           if(continent.offTimeout) {
             clearTimeout(continent.offTimeout);
             delete continent.offTimeout;
           } else {
+            nameLabel.show();
             paths.forEach(function(path) {
-              path.attr({"opacity" : defaults.hoverOpacity});
-              NUMS.scale(path, NUMS.scale.hoverFactor);
+              path.animate({"opacity" : defaults.hoverOpacity}, 200);
+              //NUMS.scale(path, NUMS.scale.hoverFactor);
             });
           }
         }
@@ -87,9 +138,10 @@ jQuery(document).ready(function() {
         function mouseout() {
           continent.offTimeout = setTimeout(function() {
             delete continent.offTimeout;
+            nameLabel.hide();
             paths.forEach(function(path) {
-              path.attr({"opacity" : defaults.opacity});
-              NUMS.scale(path, 1 / NUMS.scale.hoverFactor);
+              path.animate({"opacity" : defaults.opacity}, 200);
+              //NUMS.scale(path, 1 / NUMS.scale.hoverFactor);
             });
           }, 50);
         }
