@@ -18,6 +18,7 @@
     }
   </style>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+  <script src="/admin/noisy.min.js"></script>
   <script src="/polyfill.js"></script>
   <script src="/raphael-min.js"></script>
   <script src="/map.js"></script>

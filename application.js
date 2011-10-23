@@ -150,6 +150,8 @@ NUMS.getPointsFromServer = function() {
 
 
 jQuery(document).ready(function() {
+  jQuery("body").noisy();
+
   NUMS.paper = Raphael('map', '100%', '100%');
 
   NUMS.scale.factor = (function() {
