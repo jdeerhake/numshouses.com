@@ -1,0 +1,116 @@
+.clearfix:after {visibility: hidden;display: block;font-size: 0;content: " ";clear: both;height: 0;}
+.clearfix { display: inline-block; }
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+/* close commented backslash hack */
+
+body {
+  background: #333;
+}
+
+form.login {
+  width: 300px;
+  height: 173px;
+  padding: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -107px 0 0 -170px;
+  display: block;
+  background: rgba(255,255,255,.1);
+  -webkit-border-radius: 30px;
+}
+
+form.login input {
+  float: right;
+}
+
+label {
+  font-family: helvetica, georgia, serif;
+  font-size: 18px;
+  line-height: 30px;
+  font-weight: bold;
+  color: #ddd;
+  text-shadow: #222 1px 1px 1px;
+  width: 110px;
+}
+
+input[type=text], input[type=password] {
+  border: none;
+  background: rgba(255,255,255, .9);
+  padding: 5px 10px;
+  -webkit-border-radius: 3px;
+}
+
+button, input[type=submit] {
+  background-color: #eeeeee;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#eeeeee), to(#cccccc));
+  border: 1px solid #ccc;
+  border-bottom: 1px solid #bbb;
+  -webkit-border-radius: 3px;
+  color: #333;
+  font: bold 11px "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  line-height: 1;
+  padding: 8px 0;
+  text-align: center;
+  text-shadow: 0 1px 0 #eee;
+  width: 100px;
+  }
+  button:hover, input[type=submit]:hover {
+    background-color: #dddddd;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#dddddd), to(#bbbbbb));
+    border: 1px solid #bbb;
+    border-bottom: 1px solid #999;
+    cursor: pointer;
+    text-shadow: 0 1px 0 #ddd;
+  }
+  button:active, input[type=submit]:active {
+    border: 1px solid #aaa;
+    border-bottom: 1px solid #888;
+    -webkit-box-shadow: inset 0 0 5px 2px #aaaaaa, 0 1px 0 0 #eeeeee;
+  }
+
+.form_row {
+  display: block;
+  margin: 10px 0;
+  padding: 10px;
+  -webkit-border-radius: 5px;
+}
+
+.points {
+  margin: 50px auto 0;
+  width: 405px;
+}
+
+.points label {
+  display: block;
+  float: left;
+  width: 175px;
+}
+
+.points input[type=text] {
+  width: 100px;
+}
+
+.points input[type=submit], .points button {
+  margin-left: 10px;
+  width: 75px;
+}
+
+#logout {
+  display: block;
+  position: absolute;
+  color: #999;
+  font-size: 13px;
+  top: 5px;
+  left: 100%;
+  margin-left: -50px;
+  text-decoration: none;
+  font-family: arial;
+}
+
+#logout:hover {
+  text-decoration: underline;
+}
+
