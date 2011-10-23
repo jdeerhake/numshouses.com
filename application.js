@@ -115,7 +115,38 @@ NUMS.label = function(text, type, x, y) {
     top : y + "px",
     left : x + "px"
   }).hide().appendTo("body");
-}
+};
+
+NUMS.setPoints = function(arr) {
+  arr.forEach(function(current) {
+    var continent = NUMS.continents[current.name];
+    if(current.points !== continent.score) {
+      NUMS.updateLabel(continent, continent.score, current.points);
+      continent.score = current.points;
+    }
+  });
+};
+
+NUMS.updateLabel = function(continent, oldVal, newVal) {
+  var diff = newVal - oldVal;
+  if(continent.scoreLabel.el) {
+    continent.trigger("on");
+    setTimeout(function() { continent.trigger("off"); }, 5000);
+    if(diff > 0) diff = "+" + diff;
+    continent.scoreLabel.el.hide().html("<em>" + diff + "</em>").fadeIn(500);
+    setTimeout(function() {
+      continent.scoreLabel.el.hide().html(newVal).fadeIn(500);
+    }, 5000);
+  }
+};
+
+NUMS.getPointsFromServer = function() {
+  jQuery.ajax({
+    type : "get",
+    url : "/get_points.php",
+    dataType : "script"
+  });
+};
 
 
 jQuery(document).ready(function() {
@@ -172,8 +203,18 @@ jQuery(document).ready(function() {
             });
           }, 50);
         }
+
+        continent.trigger = function(type) {
+          if(type === "on") {
+            mouseover();
+          } else {
+            mouseout();
+          }
+        };
       }());
     }
   }
+
+  setInterval(NUMS.getPointsFromServer, 1000);
 });
 
