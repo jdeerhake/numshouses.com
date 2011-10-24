@@ -6,11 +6,11 @@
     html, #map { width: 100%; height: 100%; }
 
     .label {
-      padding: 15px 20px;
+      padding: 10px 15px;
       -webkit-border-radius: 10px;
       background: gray;
       background-color: rgba(0,0,0,.6);
-      font-size: 20px;
+      font-size: 16px;
       font-family: Georgia, Times, serif;
       color: #fff;
       position: absolute;
