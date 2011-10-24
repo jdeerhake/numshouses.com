@@ -159,7 +159,7 @@ jQuery(document).ready(function() {
       heightFactor = svg.height() / NUMS.mapData.height,
       widthFactor = svg.width() / NUMS.mapData.width;
 
-    return heightFactor > widthFactor ? heightFactor : widthFactor;
+    return heightFactor < widthFactor ? heightFactor : widthFactor;
   }());
 
 
