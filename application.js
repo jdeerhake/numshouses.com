@@ -217,6 +217,6 @@ jQuery(document).ready(function() {
     }
   }
 
-  setInterval(NUMS.getPointsFromServer, 1000);
+  setInterval(NUMS.getPointsFromServer, 5000);
 });
 
