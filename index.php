@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+  <title>NUMS Houses</title>
   <style>
     body { width: 95%; height: 95%; background: #eee; }
     html, #map { width: 100%; height: 100%; }
