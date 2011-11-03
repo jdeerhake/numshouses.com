@@ -6,7 +6,7 @@
 /* close commented backslash hack */
 
 body {
-  background: #333;
+  background: #666;
 }
 
 form.login {
@@ -28,7 +28,7 @@ form.login input {
 
 label {
   font-family: helvetica, georgia, serif;
-  font-size: 18px;
+  font-size: 22px;
   line-height: 30px;
   font-weight: bold;
   color: #ddd;
@@ -87,11 +87,11 @@ button, input[type=submit] {
 .points label {
   display: block;
   float: left;
-  width: 175px;
+  width: 225px;
 }
 
 .points input[type=text] {
-  width: 100px;
+  width: 50px;
 }
 
 .points input[type=submit], .points button {

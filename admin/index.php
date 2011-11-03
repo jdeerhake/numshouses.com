@@ -12,8 +12,18 @@
   $q->buildQuery();
 
   foreach($q->result as $index => $current) {
-    $q->result[$index]['name'] = ucwords(str_replace("_", " ", $current['name']));
+    $q->result[$index]['formatted_name'] = ucwords(str_replace("_", " ", $current['name']));
   }
+
+  $colors = array(
+    "north_america" => "#1f519a",
+    "asia" => "#e2bb44",
+    "europe" =>"#ae0b20",
+    "africa" => "#d74a12",
+    "australia" => "#007747",
+    "south_america" => "#c12966",
+    "antarctica" => "#391d50"
+  );
 ?>
 <!doctype html>
 <html>
@@ -28,10 +38,9 @@
 <body>
   <a id="logout" href="/admin/logout.php">Log out</a>
   <div class="points">
-  <!--<?php print_r($_SERVER['HTTP_ACCEPT']); ?>-->
   <?php foreach($q->result as $current) { ?>
   <form method="post" class="form_row point_update">
-    <label for="<?=$current['name']?>"><?=$current['name']?></label>
+    <label for="<?=$current['name']?>" style='color:<?=$colors[$current['name']]?>'><?=$current['formatted_name']?></label>
     <input type="text" value="<?=$current['points']?>" id="<?=$current['name']?>" name="points">
     <input type="hidden" value="<?=$current['id']?>" name="continent">
     <input type="submit" value="Save" class="save">

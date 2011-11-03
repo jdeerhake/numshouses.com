@@ -17,6 +17,11 @@
       position: absolute;
       z-index: 1000;
     }
+
+    .score.label {
+      font-size: 36px;
+      font-weight: bold;
+    }
   </style>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
   <script src="/admin/noisy.min.js"></script>
