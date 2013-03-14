@@ -4,7 +4,7 @@
 
   session_start();
 
-  if(isset$_SESSION['authenticated']) && $_SESSION['authenticated'] == true ) {
+  if(isset($_SESSION['authenticated']) && $_SESSION['authenticated'] == true ) {
     header('Location: /admin/index.php');
   } else if(isset($_REQUEST['name']) || isset($_REQUEST['password']))x {
     $q = new Query("select", "users");
