@@ -102,13 +102,13 @@ class Query {
 				$this->sql .= " WHERE $where";
 		}
 
-		if(is_set($this->groupCols) && is_array($this->groupCols)) {
+		if(isset($this->groupCols) && is_array($this->groupCols)) {
 		  $args = implode(", ", $this->groupCols);
 			$this->sql .= " GROUP BY $args";
 		}
 
 
-		if(is_set($this->orderBys) && is_array($this->orderBys)) {
+		if(isset($this->orderBys) && is_array($this->orderBys)) {
 		  $args = implode(", ", $this->orderBys);
 			$this->sql .= " ORDER BY $args";
 		}
