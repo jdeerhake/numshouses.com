@@ -6,7 +6,7 @@ create table continents (
   points INT NOT NULL,
   admin VARCHAR(100),
   updated_at timestamp default now()
-) type=innodb;
+);
 
 insert into continents(name, points, admin) values
   ('africa', 0, 1),
@@ -23,7 +23,7 @@ create table users (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(100),
   password VARCHAR(100) NOT NULL
-) type=innodb;
+);
 
 insert into users(name, password) values('admin', SHA1('test'));
 
