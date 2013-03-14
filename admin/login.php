@@ -6,7 +6,7 @@
 
   if(isset($_SESSION['authenticated']) && $_SESSION['authenticated'] == true ) {
     header('Location: /admin/index.php');
-  } else if(isset($_REQUEST['name']) || isset($_REQUEST['password']))x {
+  } else if(isset($_REQUEST['name']) || isset($_REQUEST['password'])) {
     $q = new Query("select", "users");
     $q->addClause("name", mysql_real_escape_string($_REQUEST['name']))
       ->addClause("password", sha1($_REQUEST['password']))
