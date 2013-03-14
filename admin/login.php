@@ -4,9 +4,9 @@
 
   session_start();
 
-  if($_SESSION['authenticated'] == true ) {
+  if(isset$_SESSION['authenticated']) && $_SESSION['authenticated'] == true ) {
     header('Location: /admin/index.php');
-  } else if($_REQUEST['name'] || $_REQUEST['password']) {
+  } else if(isset($_REQUEST['name']) || isset($_REQUEST['password'])) {
     $q = new Query("select", "users");
     $q->addClause("name", mysql_real_escape_string($_REQUEST['name']))
       ->addClause("password", sha1($_REQUEST['password']))
@@ -33,7 +33,7 @@
 </head>
 <body>
   <form method="post" class="login">
-    <?php if($bad_pass) echo "Bad user name or password.<br />"; ?>
+    <?php if(isset($bad_pass)) echo "Bad user name or password.<br />"; ?>
     <div class="form_row clearfix">
       <label for="name">User name:</label>
       <input type="text" id="name" name="name">

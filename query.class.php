@@ -89,7 +89,7 @@ class Query {
 			break;
 		}
 
-		if(is_array($this->join)) {
+		if(isset($this->join) && is_array($this->join)) {
 		  $joins = implode(' ', $this->join);
 		  $this->sql .= " $joins";
 		}
@@ -102,13 +102,13 @@ class Query {
 				$this->sql .= " WHERE $where";
 		}
 
-		if(is_array($this->groupCols)) {
+		if(is_set($this->groupCols) && is_array($this->groupCols)) {
 		  $args = implode(", ", $this->groupCols);
 			$this->sql .= " GROUP BY $args";
 		}
 
 
-		if(is_array($this->orderBys)) {
+		if(is_set($this->orderBys) && is_array($this->orderBys)) {
 		  $args = implode(", ", $this->orderBys);
 			$this->sql .= " ORDER BY $args";
 		}
@@ -121,11 +121,9 @@ class Query {
 
 	function makeQuery() {
 	  if(isset(self::$cache[$this->sql])) {
-	    $GLOBALS['cacheqcount']++;
 	    $this->result = self::$cache[$this->sql];
 	    return $this->result;
 	  } else {
-	    $GLOBALS['qcount']++;
 		  $result = mysql_query($this->sql) or die("<b>Error</b>: " . mysql_error() . "\n<br /><b>Statement</b>: {$this->sql}");
 		  if($result) {
 			  switch($this->type) {
